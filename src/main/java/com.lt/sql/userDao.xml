@@ -28,4 +28,8 @@
         FROM t_user u
         where u.username=#{name}
     </select>
+
+    <update id="update">
+
+    </update>
 </mapper>
