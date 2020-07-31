@@ -3,7 +3,6 @@ package com.lt.controller;
 
 import com.lt.entity.User;
 import com.lt.service.UserService;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,9 +23,9 @@ public class UserController {
     @Resource(name = "UserService")
     private UserService userService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/login")
     public String index(){
-        return "index";
+        return "html/login";
     }
 
     @RequestMapping("/find")
@@ -37,21 +36,21 @@ public class UserController {
       System.out.println("======Controller=======");
       User loginuser=userService.findUserByName(user.getName());
       if(loginuser !=null){
-         map.put("result","success");
+         map.put("result","main");
       }else{
           map.put("result","failed");
       }
       return map;
     }
 
-    @RequestMapping("/success")
+    @RequestMapping("/main")
     public String success(){
         logger.info("login success");
-        return  "success";
+        return "html/main";
     }
     @RequestMapping("/failed")
     public String failed(){
         logger.info("login failed");
-        return  "failed";
+        return "html/failed";
     }
 }
