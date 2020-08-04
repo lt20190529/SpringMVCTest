@@ -1,18 +1,20 @@
 package com.lt.controller;
 
 
-import com.lt.entity.User;
 import com.lt.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.apache.log4j.Logger;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/user")
@@ -23,34 +25,28 @@ public class UserController {
     @Resource(name = "UserService")
     private UserService userService;
 
-    @RequestMapping("/login")
-    public String index(){
-        return "html/login";
+
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "login";
     }
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(String loginuserName, String passwd, Model model) {
 
-    @RequestMapping("/find")
-    @ResponseBody
-    public Map<String,Object> findUser(User user, HttpServletRequest request){
+        Subject subject= SecurityUtils.getSubject();  //获得主体
+        UsernamePasswordToken taken = new UsernamePasswordToken("zhangsan","123");
 
-      Map<String,Object> map=new HashMap();
-      System.out.println("======Controller=======");
-      User loginuser=userService.findUserByName(user.getName());
-      if(loginuser !=null){
-         map.put("result","main");
-      }else{
-          map.put("result","failed");
-      }
-      return map;
-    }
+        try {
+            subject.login(taken);
+        } catch (AuthenticationException e) {
+            //e.printStackTrace();
+            return "login";    //失败定位登录界面
+            //return e.getMessage();login
+        }
 
-    @RequestMapping("/main")
-    public String success(){
         logger.info("login success");
-        return "html/main";
+        return "main";
     }
-    @RequestMapping("/failed")
-    public String failed(){
-        logger.info("login failed");
-        return "html/failed";
-    }
+
 }

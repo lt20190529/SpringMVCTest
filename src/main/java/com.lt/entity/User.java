@@ -15,6 +15,8 @@ public class User  implements Serializable {
 
     private String sex;
 
+    private String state;  //用户状态
+
 
     public User() {
     }
@@ -60,6 +62,14 @@ public class User  implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     @Override
