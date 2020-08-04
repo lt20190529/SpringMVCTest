@@ -16,6 +16,14 @@
     </script>
 <body>
 <div class="container">
+
+    <div class="header">
+        <div id="messageBox" class="alert alert-error ${empty message ? 'hide' : ''}"><button data-dismiss="alert" class="close">×</button>
+            <label id="loginError" class="error">${message}</label>
+        </div>
+    </div>
+
+
     <form id="loginForm" action="/user/login" method="post" class="form-horizontal">
         <fieldset>
             <div class="login_header" style="text-align:center; display:block">
@@ -51,7 +59,7 @@
             <div class="form-group" id="butDiv">
                 <div class="col-md-8 ">
                     <button type="submit" id="subBut" class="btn btn-xs btn-primary">登录</button>
-                    <button type="reset" id="rstBut" class="btn btn-xs btn-warning">重置</button>
+                    <button type="reset" id="rstBut" class="btn btn-xs btn-primary">重置</button>
                 </div>
             </div>
 
