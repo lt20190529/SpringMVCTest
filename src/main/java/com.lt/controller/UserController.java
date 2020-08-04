@@ -60,7 +60,7 @@ public class UserController {
             return new ModelAndView("login");    //失败定位登录界面
         } catch (LockedAccountException e){
             logger.info("账号被锁定");
-            return new ModelAndView("login");    //失败定位登录界面
+            return new ModelAndView("login");
         } catch (DisabledAccountException e){
             logger.info("禁用的账号");
             return new ModelAndView("login");   //失败定位登录界面
