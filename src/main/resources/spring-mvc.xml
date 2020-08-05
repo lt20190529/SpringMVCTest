@@ -30,6 +30,13 @@
             <bean id="MyInterceptor" class="com.lt.common.interceptors.MyInterceptor"></bean>
         </mvc:interceptor>
         <!--<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />-->
+
+        <!--防止重复提交-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.lt.repeatformvalidator.SameUrlDataInterceptor"/>
+        </mvc:interceptor>
+
     </mvc:interceptors>
 
     <!-- 支持返回json(避免IE在ajax请求时，返回json出现下载文件 ) -->
@@ -53,12 +60,26 @@
     </bean>
 
     <!-- 默认的视图解析器  -->
-    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="3">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="contentType" value="text/html" />
-        <property name="prefix" value="/WEB-INF/page/html/"/>
-        <property name="suffix" value=".html"/><!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑  -->
+
+    <!--thymeleaf模板解析器-->
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/page/html/"></property>         <!--前缀配置-->
+        <property name="suffix" value=".html"></property>                         <!--后缀配置-->
+        <!--<property name="templateMode" value="HTML"></property>                    &lt;!&ndash;模板类型&ndash;&gt;-->
+        <property name="cacheable" value="false"></property>                       <!--不使用缓存-->
+        <property name="characterEncoding" value="UTF-8"></property>              <!--编码类型-->
+        <property name="templateMode" value="LEGACYHTML5"></property>
     </bean>
+    <!--模板引擎配置-->
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"></property>
+    </bean>
+    <!--视图处理器-->
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"></property>
+        <property name="characterEncoding" value="UTF-8"></property>
+    </bean>
+
 
 
     <!-- 配置springMVC处理上传文件的信息 -->
@@ -75,5 +96,5 @@
     <mvc:default-servlet-handler />
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/static/" cache-period="31536000"/>
-
+    <!--<mvc:resources location="/" mapping="/*.html"/>-->
 </beans>

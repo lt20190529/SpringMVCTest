@@ -28,6 +28,8 @@
     <jackson.version>2.5.0</jackson.version>
     <!--shiro版本-->
     <shiro.version>1.2.3</shiro.version>
+    <!--thymeleaf模板引擎-->
+    <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
   </properties>
 
 
@@ -333,6 +335,28 @@
       <version>${shiro.version}</version>
     </dependency>
 
+    <!--thymeleaf模板引擎-->
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf-spring4</artifactId>
+      <version>${thymeleaf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>${thymeleaf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+      <version>1.9.22</version>
+    </dependency>
+
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+    </dependency>
   </dependencies>
 
 

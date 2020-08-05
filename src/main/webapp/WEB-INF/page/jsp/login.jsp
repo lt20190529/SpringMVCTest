@@ -1,35 +1,34 @@
-<html  xmlns:th="http://www.thymeleaf.org" >
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta http-equiv=Content-Type content=text/html; charset=utf-8/>
+    <title>Spring</title>
+</head>
+<meta http-equiv=Content-Type content=text/html; charset=utf-8>
 
-    <script type="text/javascript" src="../plugs/js/jQuery/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="../plugs/js/bootstrap-4.0.0/js/bootstrap.min.js"></script>
-    <link href="../plugs/js/bootstrap-4.0.0/css/bootstrap.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="../../../plugs/js/jQuery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../../../plugs/js/bootstrap-4.0.0/js/bootstrap.min.js"></script>
 
+<link href="../../../plugs/js/bootstrap-4.0.0/css/bootstrap.css" type="text/css" rel="stylesheet">
+<title>登录首页</title>
+<style>
 
+</style>
+<script type="text/javascript">
 
-    <title>登录首页</title>
-    <style>
-
-    </style>
-    <script th:inline="javascript">
-
-
-        $("#loginForm").submit(function(e){ //uploadVideoForm为表单名称
-            e.preventDefault()
-        })
-    </script>
+</script>
 
 <body>
 <div class="container">
 
     <div class="header">
-
+        <div id="messageBox" class="alert alert-error ${empty message ? 'hide' : ''}">
+            <button data-dismiss="alert" class="close">×</button>
+            <label id="loginError" class="error">${message}</label>
+        </div>
     </div>
 
 
-    <form id="loginForm" action="/user/login" method="post" class="form-horizontal" >
+    <form id="loginForm" action="/user/login" method="post" class="form-horizontal">
         <fieldset>
             <div class="login_header" style="text-align:center; display:block">
                 <br>
@@ -60,13 +59,10 @@
                 </div>
                 <div class="col-md-4" id="passwordSpan"></div>
             </div>
-            <div id="message" class="alert alert-error ${empty message ? 'hide' : ''}">
-                <span th:text="${message}"></span>
-            </div>
 
             <div class="form-group" id="butDiv">
                 <div class="col-md-8 ">
-                    <button type="submit" id="subBut" class="btn btn-xs btn-primary" onsubmit="return checkSubmit()">登录</button>
+                    <button type="submit" id="subBut" class="btn btn-xs btn-primary">登录</button>
                     <button type="reset" id="rstBut" class="btn btn-xs btn-primary">重置</button>
                 </div>
             </div>
@@ -107,6 +103,7 @@
     </form>
 
 </div>
+</body>
 </body>
 
 </html>

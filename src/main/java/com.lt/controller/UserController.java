@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -33,13 +34,14 @@ public class UserController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String  login(HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("message", "");
         return "login";
     }
 
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public ModelAndView login(HttpServletRequest request, Model model) {
+    public String login(HttpServletRequest request, Model model) {
 
         ModelMap map=new ModelMap();
 
@@ -53,23 +55,23 @@ public class UserController {
         } catch (UnknownAccountException e){
             String message="未知的账号";
             logger.info("未知的账号");
-            map.put("message", message);
-            return new ModelAndView("login");    //失败定位登录界面
+            model.addAttribute("message", message);
+            return "login";    //失败定位登录界面
         } catch (ConcurrentAccessException e){
             logger.info("并发访问异常（多个用户同时登录时抛出）");
-            return new ModelAndView("login");    //失败定位登录界面
+            return "login";    //失败定位登录界面
         } catch (LockedAccountException e){
             logger.info("账号被锁定");
-            return new ModelAndView("login");
+            return "login";
         } catch (DisabledAccountException e){
             logger.info("禁用的账号");
-            return new ModelAndView("login");   //失败定位登录界面
+            return "login";   //失败定位登录界面
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            return new ModelAndView("login");   //失败定位登录界面
+            return "login";   //失败定位登录界面
         }
         logger.info("login success");
-        return new ModelAndView("main");
+        return "main";
     }
 
 }
