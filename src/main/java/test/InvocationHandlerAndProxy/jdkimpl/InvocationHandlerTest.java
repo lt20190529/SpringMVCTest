@@ -1,6 +1,7 @@
 package test.InvocationHandlerAndProxy.jdkimpl;
 
 
+import com.lt.config.Global;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationHandler;
@@ -22,5 +23,12 @@ public class InvocationHandlerTest {
         System.out.println(proxy.Work());
         System.out.println("******************************************************");
         System.out.println(proxy1.Work());
+    }
+
+    //Global测试
+    @Test
+    public void test2(){
+        System.out.println(Global.getConfig("web.DSAFASF"));
+
     }
 }

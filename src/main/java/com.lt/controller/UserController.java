@@ -45,6 +45,7 @@ public class UserController {
 
         ModelMap map=new ModelMap();
 
+
         String name= request.getParameter("username");
         String pwd=request.getParameter("password");
         Subject subject= SecurityUtils.getSubject();  //获得主体

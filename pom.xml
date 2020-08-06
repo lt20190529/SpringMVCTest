@@ -30,6 +30,8 @@
     <shiro.version>1.2.3</shiro.version>
     <!--thymeleaf模板引擎-->
     <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
+
+    <guava.version>17.0</guava.version>
   </properties>
 
 
@@ -356,6 +358,13 @@
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
       <version>1.4.01</version>
+    </dependency>
+
+    <!-- google java lib -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 

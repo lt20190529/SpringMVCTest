@@ -14,11 +14,27 @@
 
     </style>
     <script th:inline="javascript">
+        $(document).ready(function() {
+            window.onbeforeunload=function (){
+                alert("你正在刷新页面");
+            }
+            var commitStatus = false;
+            alert(commitStatus)
+
+        });
+        function dosubmit() {
+            alert("==="+commitStatus==false)
+            if (commitStatus ==false) {
+                alert(1)
+                //提交表单后，讲提交状态改为true
+                commitStatus = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 
-        $("#loginForm").submit(function(e){ //uploadVideoForm为表单名称
-            e.preventDefault()
-        })
     </script>
 
 <body>
@@ -29,7 +45,7 @@
     </div>
 
 
-    <form id="loginForm" action="/user/login" method="post" class="form-horizontal" >
+    <form id="loginForm" action="/user/login" method="post" class="form-horizontal" onsubmit="dosubmit()">
         <fieldset>
             <div class="login_header" style="text-align:center; display:block">
                 <br>
@@ -66,8 +82,8 @@
 
             <div class="form-group" id="butDiv">
                 <div class="col-md-8 ">
-                    <button type="submit" id="subBut" class="btn btn-xs btn-primary" onsubmit="return checkSubmit()">登录</button>
-                    <button type="reset" id="rstBut" class="btn btn-xs btn-primary">重置</button>
+                    <button type="submit" id="subBut" class="btn btn-xs btn-primary" >登录</button>
+                    <button type="reset" id="rstBut" class="btn btn-xs btn-primary" >重置</button>
                 </div>
             </div>
 
