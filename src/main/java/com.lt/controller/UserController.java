@@ -1,6 +1,8 @@
 package com.lt.controller;
 
 
+import com.lt.entity.Menu;
+import com.lt.service.MenuService;
 import com.lt.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -31,6 +34,8 @@ public class UserController {
     @Resource(name = "UserService")
     private UserService userService;
 
+    @Autowired
+    private MenuService menuService;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -41,10 +46,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, Model model) {
+    public ModelAndView login(HttpServletRequest request, Model model) {
 
-        ModelMap map=new ModelMap();
-
+        ModelAndView mv=new ModelAndView();
 
         String name= request.getParameter("username");
         String pwd=request.getParameter("password");
@@ -57,22 +61,31 @@ public class UserController {
             String message="未知的账号";
             logger.info("未知的账号");
             model.addAttribute("message", message);
-            return "login";    //失败定位登录界面
+            mv.setViewName("login"); //失败定位登录界面
+            return mv;
         } catch (ConcurrentAccessException e){
             logger.info("并发访问异常（多个用户同时登录时抛出）");
-            return "login";    //失败定位登录界面
+            mv.setViewName("login"); //失败定位登录界面
+            return mv;
         } catch (LockedAccountException e){
             logger.info("账号被锁定");
-            return "login";
+            mv.setViewName("login"); //失败定位登录界面
+            return mv;
         } catch (DisabledAccountException e){
             logger.info("禁用的账号");
-            return "login";   //失败定位登录界面
+            mv.setViewName("login"); //失败定位登录界面
+            return mv;
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            return "login";   //失败定位登录界面
+            mv.setViewName("login"); //失败定位登录界面
+            return mv;
         }
         logger.info("login success");
-        return "main";
+        mv.setViewName("main"); //失败定位登录界面
+        List<Menu> menuList=menuService.findAllMenu();
+        mv.addObject("menuList",menuList);
+        return mv;
+
     }
 
 }
