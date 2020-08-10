@@ -6,7 +6,7 @@
  * @version 2013-11-09
  */
 
-$("#left").width(leftWidth);
+$("#left").width(160);
 $("#openClose").click(function(){
 	if($(this).hasClass("close")){
 		$(this).removeClass("close");

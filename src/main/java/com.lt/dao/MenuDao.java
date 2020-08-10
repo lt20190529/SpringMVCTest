@@ -10,15 +10,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("MenuDao")
-public class MenuDao {
+public interface MenuDao {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    //@Autowired
+    //private JdbcTemplate jdbcTemplate;
 
-   public List<Menu> getAllMenu(){
+   /*public List<Menu> getAllMenu(){
        String sql = "SELECT * FROM sys_menu";
        List<Menu> list=jdbcTemplate.query(sql,new BeanPropertyRowMapper<Menu>(Menu.class));
        return list;
-   }
+   }*/
+
+    public List<Menu> getAllMenu();
+
 
 }
