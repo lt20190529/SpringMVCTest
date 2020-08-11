@@ -24,4 +24,8 @@ public class MenuController {
         mv.addObject("menuList",menuList);
         return mv;
     }
+    @RequestMapping(value = "treeN")
+    public String treeN() {
+        return "menuTreeN";
+    }
 }

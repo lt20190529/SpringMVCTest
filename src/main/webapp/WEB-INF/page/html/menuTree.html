@@ -1,44 +1,41 @@
 <html  xmlns:th="http://www.thymeleaf.org" >
 <div class="accordion" id="menu-${param.parentId}">
-    <div th:each="arrayS:${param.parentId}">
-        <div th:text="${arrayS}"></div>
-        <li th:each="menu:${menuList}" th:if="${menu.isShow eq '1'}">
-            <a><span><p th:text="${menu.name}"></p></span></a>
+    <div th:each="arrayS:${param.parentId}" th:with ="firstMenu=true">
+        <li th:each="menu:${menuList}" th:if="${menu.parent.id eq arrayS && menu.isShow=='1'}">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" th:attr="data-parent='#menu-'+arrayS,data-href='#collapse-'+${menu.id},
+                       href='#collapse-'+${menu.id},title='${menu.remarks}'">
+                        <i th:attr="class='icon-chevron-'+${firstMenu!=null && firstMenu ? 'down' : 'right'}"></i>&nbsp;<p th:text="${menu.name}"></p>
+
+                    </a>
+                </div>
+                <div th:id="'collapse-'+${menu.id}" th:attr="class='accordion-body collapse'+${firstMenu!=null && firstMenu ? ' in' : ' '}">
+                    <div class="accordion-inner">
+                        <ul class="nav nav-list">
+                            <li th:each="menu2:${menuList}"
+                                th:if="${menu2.parent.id eq menu.id && menu2.isShow eq 1}">
+                                <a th:attr="data-href='.menu3-'+${menu2.id},href='/404',target=${menu2.target==null ? menu2.target : 'mainFrame'}">
+                                <i th:class="'icon-'+${menu2.icon==null ? menu2.icon : 'circle-arrow-right'}"></i>&nbsp;<p
+                                        th:text="${menu2.name}"></p>
+                                </a>
+                                <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
+                                    <li th:class="'menu3-'+${menu2.id}+ ' hide'" th:each="menu3:${menuList}"
+                                        th:if="${menu3.parent.id eq menu2.id && menu3.isShow eq 1}">
+                                        <a href="${fn:indexOf(menu3.href, '://') eq -1 ? ctx : ''}${not empty menu3.href ? menu3.href : '/404'}"
+                                           th:target="${menu3.target==null ? menu3.target : 'mainFrame'}"><i
+                                                th:class="'icon-'+${menu3.icon==null ? menu3.icon : 'circle-arrow-right'}"></i>&nbsp;<p
+                                                th:text="${menu3.name}"></p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
         </li>
     </div>
-
-
-
-
-
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-${param.parentId}"
-                   data-href="#collapse-${menu.id}" href="#collapse-${menu.id}" title="${menu.remarks}"><i
-                        class=""></i>&nbsp;${menu.name}
-                </a>
-            </div>
-            <div id="collapse-${menu.id}" class="accordion-body collapse ${not empty firstMenu && firstMenu ? 'in' : ''}">
-                <div class="accordion-inner">
-                    <ul class="nav nav-list">
-                        <li th:each="menu2:${menuList}" th:if="${menu2.parent.id eq menu.id&&menu.isShow eq '1'}">
-                            <li><a data-href=".menu3-${menu2.id}"  href=""  target="">
-                                <i class=""></i>&nbsp;${menu2.name}
-                            </a>
-                                <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-                                    <li th:each="menu3:${menuList}" th:if="${menu3.parent.id eq menu2.id&&menu.isShow eq '1'}">
-                                    <li class=""><a  href="" target="">
-                                    <i class=""></i>&nbsp;${menu3.name}
-                                    </a></li>
-                                </c:if>
-                                </c:forEach></ul>
-                            </li>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </c:if></c:forEach>
 </div>
 </html>
