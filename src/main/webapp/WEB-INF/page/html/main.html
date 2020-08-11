@@ -5,12 +5,19 @@
     <title>后台运维管理系统</title>
 
     <!--CSS文件引入-->
-    <link rel="Stylesheet" th:href="@{/plugs/js/jerichotab/css/jquery.jerichotab.css}"
+    <link rel="stylesheet" th:href="@{/plugs/js/jerichotab/css/jquery.jerichotab.css}"
           href="../plugs/js/jerichotab/css/jquery.jerichotab.css" rel="stylesheet"/>
 
+    <link rel="stylesheet" th:href="@{/plugs/js/bootstrap-2.3.1/css_cerulean/bootstrap.min.css}"
+          href="../plugs/js/bootstrap-2.3.1/css_cerulean/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/plugs/js/bootstrap-2.3.1/awesome/font-awesome.min.css}"
+          href="../plugs/js/bootstrap-2.3.1/awesome/font-awesome.min.css" rel="stylesheet"/>
 
     <!--JS文件引入-->
-    <script th:src="@{/plugs/js/jQuery/jquery-3.4.1.js}" src="../plugs/js/jQuery/jquery-3.4.1.min.js"></script>
+    <script th:src="@{/plugs/js/jQuery/jquery-3.4.1.js}"
+            src="../plugs/js/jQuery/jquery-3.4.1.min.js"></script>
+    <script th:src="@{/plugs/js/bootstrap-2.3.1/js/bootstrap.min.js}"
+            src="../plugs/js/bootstrap-2.3.1/js/bootstrap.min.js"></script>
     <script th:src="@{/plugs/js/jerichotab/js/jquery.jerichotab.js}"
             src="../plugs/js/jerichotab/js/jquery.jerichotab.js"></script>
 
@@ -196,26 +203,20 @@
                 <div th:text="${T(com.lt.config.Global).getConfig('productName')}"></div>  <!--获取jeesite.properties定义变量-->
             </span></div>
 
-        </div>
-        <ul id="userControl" class="nav pull-right">
-            <li><a href="www.baidu.com" target="_blank" title="访问网站主页"><i class="icon-home"></i></a></li>
 
+        <ul id="userControl" class="nav pull-right">
+            <li><a href="${pageContext.request.contextPath}${fns:getFrontPath()}/index-${fnc:getCurrentSiteId()}.html" target="_blank" title="访问网站主页"><i class="icon-home"></i></a></li>
             <li id="themeSwitch" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="主题切换"><i
-                        class="icon-th-large"></i></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="主题切换"><i class="icon-th-large"></i></a>
                 <ul class="dropdown-menu">
-                    <!--主题切换-->
                 </ul>
             </li>
             <li id="userInfo" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="个人信息">您好,XXX&nbsp;<span id="notifyNum"
-                                                                                                          class="label label-info hide"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="个人信息" >您好&nbsp;<span id="notifyNum" class="label label-info hide"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="" target="mainFrame"><i class="icon-user"></i>&nbsp; 个人信息</a></li>
-                    <li><a href="" target="mainFrame"><i class="icon-lock"></i>&nbsp; 修改密码</a></li>
-                    <li><a href="" target="mainFrame"><i class="icon-bell"></i>&nbsp; 我的通知 <span id="notifyNum2"
-                                                                                                 class="label label-info hide"></span></a>
-                    </li>
+                    <li><a href="${ctx}/sys/user/info" target="mainFrame"><i class="icon-user"></i>&nbsp; 个人信息</a></li>
+                    <li><a href="${ctx}/sys/user/modifyPwd" target="mainFrame"><i class="icon-lock"></i>&nbsp;  修改密码</a></li>
+                    <li><a href="${ctx}/oa/oaNotify/self" target="mainFrame"><i class="icon-bell"></i>&nbsp;  我的通知 <span id="notifyNum2" class="label label-info hide"></span></a></li>
                 </ul>
             </li>
             <li><a href="${ctx}/logout" title="退出登录">退出</a></li>
@@ -223,27 +224,22 @@
         </ul>
 
         <div class="nav-collapse">
-            <table>
-
-            </table>
-            <ul id="menu" class="nav" class="layui-nav-child"  style="background: #2b2e37;" style="*white-space:nowrap;float:none;">
+            <ul id="menu" class="nav"  style="*white-space:nowrap;float:none;">
                 <li th:each="child:${menuList}" th:if="${child.parent.id eq '1'&&child.isShow eq '1'}">
-                       <a  th:if="${child.href} == null" class="menu"  th:attr="href='javascript:',data-id=${child.id},data-href='/menu/tree?parentId='+${child.id}"><span><p th:text="${child.name}"></p></span></a>
-                       <a  th:if="${child.href} != null" class="menu"  th:attr="href=${child.href},data-id=${child.id},target='mainFrame'"></p></span></a>
+                    <a  th:if="${child.href} == null" class="menu"  th:attr="href='javascript:',data-id=${child.id},data-href='/menu/tree?parentId='+${child.id}"><span><p th:text="${child.name}"></p></span></a>
+                    <a  th:if="${child.href} != null" class="menu"  th:attr="href=${child.href},data-id=${child.id},target='mainFrame'"></p></span></a>
                 </li>
             </ul>
         </div>
+        </div>
+   </div>
 
-
-    </div>
-</div>
 <div class="container-fluid">
     <div id="content" class="row-fluid">
         <div id="left">
-            <iframe id="menuFrame" name="menuFrame" src="" style="overflow:visible;" scrolling="yes" frameborder="no"
-                    width="100%" height="450"></iframe>
+
         </div>
-        <div id="openClose" class="close">&nbsp;</div>
+        <div id="openClose" class="close" style="height: 474px;">&nbsp;</div>
         <div id="right">
             <iframe id="mainFrame" name="mainFrame" src="" style="overflow:visible;" scrolling="yes" frameborder="no"
                     width="100%" height="650"></iframe>

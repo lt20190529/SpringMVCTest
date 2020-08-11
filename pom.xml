@@ -363,6 +363,7 @@
     </dependency>
 
     <!-- google java lib -->
+
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
@@ -382,7 +383,11 @@
       <artifactId>standard</artifactId>
       <version>1.1.2</version>
       <type>jar</type>
-    </dependency>
+    </dependency><dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>RELEASE</version>
+  </dependency>
   </dependencies>
 
 

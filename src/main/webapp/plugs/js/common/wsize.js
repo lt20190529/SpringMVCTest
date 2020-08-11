@@ -5,8 +5,7 @@
  * @author ThinkGem
  * @version 2013-11-09
  */
-
-$("#left").width(160);
+$("#left").width(leftWidth);
 $("#openClose").click(function(){
 	if($(this).hasClass("close")){
 		$(this).removeClass("close");
@@ -47,6 +46,7 @@ var getWindowSize = function(){
 	});
 };
 $(window).resize(function(){
+	alert(1111)
 	wSize();
 });
 wSize(); // 在主窗体中定义，设置调整目标
