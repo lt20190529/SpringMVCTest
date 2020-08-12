@@ -19,13 +19,13 @@ public class MenuController {
     @RequestMapping(value = "/tree")
     public ModelAndView tree() {
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("menuTree");                    //失败定位登录界面
+        mv.setViewName("menuTree");
         List<Menu> menuList=menuService.findAllMenu();
         mv.addObject("menuList",menuList);
         return mv;
     }
-    @RequestMapping(value = "treeN")
+    @RequestMapping(value = "/test1")
     public String treeN() {
-        return "menuTreeN";
+        return "Test";
     }
 }

@@ -1,7 +1,7 @@
 <html  xmlns:th="http://www.thymeleaf.org" >
-<div class="accordion" id="menu-${param.parentId}">
+<div class="accordion" th:attr="id='menu-27'">
     <div th:each="arrayS:${param.parentId}" th:with ="firstMenu=true">
-        <li th:each="menu:${menuList}" th:if="${menu.parent.id eq arrayS && menu.isShow=='1'}">
+        <div th:each="menu:${menuList}" th:if="${menu.parent.id eq arrayS && menu.isShow=='1'}">
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" th:attr="data-parent='#menu-'+${arrayS},data-href='#collapse-'+${menu.id},
@@ -9,22 +9,20 @@
                         <i th:attr="class=''"></i>&nbsp;<p th:text="${menu.name}"></p>
                     </a>
                 </div>
-                <div th:id="'collapse-'+${menu.id}" th:attr="class='accordion-body collapse'+${firstMenu!=null && firstMenu ? ' in' : ' '}">
+                <div th:id="'collapse-'+${menu.id}" th:attr="class='accordion-body in collapse'">
                     <div class="accordion-inner">
                         <ul class="nav nav-list">
-                            <li th:each="menu2:${menuList}"
-                                th:if="${menu2.parent.id eq menu.id && menu2.isShow eq 1}">
-                                <a th:attr="data-href='.menu3-'+${menu2.id},href='/404',target=${menu2.target==null ? menu2.target : 'mainFrame'}">
-                                    <i th:class=""></i>&nbsp;<p
+
+                            <li th:each="menu2:${menuList}" th:if="${menu2.parent.id eq menu.id}">
+                                <a th:attr="data-href='.menu3-'+${menu2.id},href='/menu/test1',target='mainFrame'">
+                                    &nbsp;<p
                                         th:text="${menu2.name}"></p>
                                 </a>
                                 <ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-                                    <li th:class="'menu3-'+${menu2.id}+ ' hide'" th:each="menu3:${menuList}"
-                                        th:if="${menu3.parent.id eq menu2.id && menu3.isShow eq 1}">
-                                        <a href="${fn:indexOf(menu3.href, '://') eq -1 ? ctx : ''}${not empty menu3.href ? menu3.href : '/404'}"
-                                           th:target="${menu3.target==null ? menu3.target : 'mainFrame'}"><i
-                                                th:class=""></i>&nbsp;<p
-                                                th:text="${menu3.name}"></p>
+                                    <li th:attr="class='menu3-'+${menu2.id}+ 'hide'" th:each="menu3:${menuList}"
+                                        th:if="${menu3.parent.id eq menu2.id}">
+                                        <a th:attr="href='/menu/test',target=${menu3.target==null ? menu3.target : 'mainFrame'}">
+                                            &nbsp;<p th:text="${menu3.name}"></p>
                                         </a>
                                     </li>
                                 </ul>
@@ -34,7 +32,7 @@
                 </div>
 
             </div>
-        </li>
+        </div>
     </div>
 </div>
 </html>
