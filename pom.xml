@@ -33,7 +33,7 @@
 
     <guava.version>17.0</guava.version>
     <!--后台实体类字段验证-->
-    <validator.version>5.2.4.Final</validator.version>
+    <validator.version>5.3.6.Final</validator.version>
   </properties>
 
 
