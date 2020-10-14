@@ -312,7 +312,7 @@
       <dependency>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>
-          <version>RELEASE</version>
+          <version>4.13.1</version>
       </dependency>
 
       <!--Cglib动态代理-->
@@ -386,7 +386,7 @@
     </dependency><dependency>
     <groupId>junit</groupId>
     <artifactId>junit</artifactId>
-    <version>RELEASE</version>
+    <version>4.13.1</version>
   </dependency>
   </dependencies>
 
