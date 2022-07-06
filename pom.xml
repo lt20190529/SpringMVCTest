@@ -27,7 +27,7 @@
     <!-- jackson包版本 -->
     <jackson.version>2.5.0</jackson.version>
     <!--shiro版本-->
-    <shiro.version>1.2.3</shiro.version>
+    <shiro.version>1.9.1</shiro.version>
     <!--thymeleaf模板引擎-->
     <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
 
